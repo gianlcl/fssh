@@ -50,7 +50,7 @@ def main():
     choosedHost = iterfzf(availableHosts)
     print(choosedHost)
     hostParams = match(RE_SSH, choosedHost).groupdict()
-    #connect_ssh(hostParams['ip'], hostParams['port'])
     print("SSH INTO {0}:{1} AS {2} WITH {3}".format(hostParams['ip'], hostParams['port'], "gian", "nothing"))
+    connect_ssh(hostParams['ip'], hostParams['port'])
 
 main()
