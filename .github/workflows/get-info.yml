@@ -12,7 +12,7 @@ on:
 
 jobs:
   greet:
-    if: github.head_ref == "new-event/*"
+    if: startsWith( github.head_ref, "new-event/" )
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
