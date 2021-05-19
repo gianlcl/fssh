@@ -18,18 +18,16 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@v1
-    - uses: jwalton/gh-find-current-pr@v1
-      id: findPr
     # Runs a single command using the runners shell
-    - name: Send greeting
+    - name: Get PR info
+      env:
+        PR: ${{ github.event.pull_request._links.self.href }}
+      run: curl -fsSL "${PR}"
+    - name: Get PR comments
       env:
         comment_url: ${{ github.event.pull_request.comments_url }}
       run: curl -fsSL "$comment_url"
-    - name: Get PR info
-      env:
-        PR: ${{ steps.findPr.outputs.pr }}
-      run: echo "${PR}"
+
   one:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
@@ -38,23 +36,4 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
+
