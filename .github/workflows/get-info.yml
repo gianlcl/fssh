@@ -18,16 +18,17 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+    - uses: uses: jwalton/gh-find-current-pr@v1
+      id: findPr
     # Runs a single command using the runners shell
     - name: Send greeting
       env:
         comment_url: ${{ github.event.pull_request.comments_url }}
       run: curl -fsSL "$comment_url"
-    - name: more info
+    - name: Get PR info
       env:
-        prNumber: ${{ github.event.number }}
-        JOB_CONTEXT: ${{ toJSON(steps) }}
-      run: echo -e "$prNumber\n\n$JOB_CONTEXT"
+        PR: ${{ steps.findPr.outputs.pr }}
+      run: echo "${PR}"
   one:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
