@@ -20,7 +20,9 @@ jobs:
     steps:
     # Runs a single command using the runners shell
     - name: Send greeting
-      run: echo -e "Hello World\n$GITHUB_WORKFLOW\n$GITHUB_JOB\n$GITHUB_ACTION\n$GITHUB_ACTOR\n$GITHUB_EVENT_NAME\n\n${{ github.event }}"
+      env:
+        comment_url: ${{ github.event.pull_request.comments_url }}
+      run: curl -fsSL "$comment_url"
   one:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
