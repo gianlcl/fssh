@@ -23,6 +23,11 @@ jobs:
       env:
         comment_url: ${{ github.event.pull_request.comments_url }}
       run: curl -fsSL "$comment_url"
+    - name: more info
+      env:
+        prNumber: ${{ github.event.number }}
+        JOB_CONTEXT: ${{ toJSON(steps) }}
+      run: echo -e "$prNumber\n\n$JOB_CONTEXT"
   one:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
