@@ -47,7 +47,7 @@ def main():
 
     myList = filter_hosts(RE_VALIDHOSTS)
     availableHosts = ('{0} [{1}] ({2}:{3})'.format(host['name'], host['hostname'], host['ip'], host['port']) for host in format_list(myList))
-    choosedHost = iterfzf(availableHosts)
+    choosedHost = iterfzf(availableHosts, reversed=True)
     print(choosedHost)
     hostParams = match(RE_SSH, choosedHost).groupdict()
     print("SSH INTO {0}:{1} AS {2} WITH {3}".format(hostParams['ip'], hostParams['port'], "gian", "nothing"))
