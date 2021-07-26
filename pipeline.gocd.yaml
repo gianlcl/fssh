@@ -30,5 +30,6 @@ pipelines:
                 command: pwd
                 run_if: passed
             - exec:
-                command: cp * /tmp/pipeline-out
+                command: ls
+                args: /tmp
                 run_if: passed
