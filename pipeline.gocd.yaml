@@ -31,12 +31,12 @@ pipelines:
                 run_if: passed
             - exec:
                 command: ls
-                arguments: 
+                arguments:
                 - "/tmp"
                 run_if: passed
             - exec:
                 command: cp
-                arguments: 
-                - "*"
+                arguments:
+                - "hosts.sample"
                 - "/tmp/pipeline-out"
                 run_if: passed
