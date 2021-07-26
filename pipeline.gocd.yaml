@@ -32,11 +32,11 @@ pipelines:
             - exec:
                 command: ls
                 arguments: 
-                - /tmp
+                - "/tmp"
                 run_if: passed
             - exec:
                 command: cp
                 arguments: 
-                - *
-                - /tmp/pipeline-out
+                - "*"
+                - "/tmp/pipeline-out"
                 run_if: passed
