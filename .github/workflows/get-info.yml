@@ -1,0 +1,39 @@
+# This is a basic workflow that is manually triggered
+
+name: Read Info
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  pull_request:
+    branches:
+    - main
+    types: [closed]
+
+jobs:
+  greet:
+    if: startsWith( ${{ github.head_ref }}, 'new-event/' )
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Runs a single command using the runners shell
+    - name: Get PR info
+      env:
+        PR: ${{ github.event.pull_request._links.self.href }}
+      run: curl -fsSL "${PR}"
+    - name: Get PR comments
+      env:
+        comment_url: ${{ github.event.pull_request.comments_url }}
+      run: curl -fsSL "$comment_url"
+
+  one:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+

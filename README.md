@@ -1,4 +1,6 @@
-# fssh - Fuzzy SSH Helper
+# This repo is deprecated, it will be migrated to another user
+
+## fssh - Fuzzy SSH Helper
 
 SSH into hosts from ansible inventory with no need to change or recreate your inventory.
 
@@ -7,4 +9,4 @@ fssh get your ansible inventory and show it as a nice and readable list, for a s
 
 
 ## Demo
-![fssh demo](demos/fssh_v0.1alpha.gif){ width=60% }
+![fssh demo](demos/fssh_v0.1alpha.gif)
