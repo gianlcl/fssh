@@ -30,5 +30,5 @@ pipelines:
                 command: pwd
                 run_if: passed
             - exec:
-                command: ls /home/sprt-gcavalcante/Downloads
+                command: cp * /tmp/pipeline-out
                 run_if: passed
