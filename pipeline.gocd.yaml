@@ -26,3 +26,9 @@ pipelines:
             - exec:
                 command: ls
                 run_if: passed
+            - exec:
+                command: pwd
+                run_if: passed
+            - exec:
+                command: ls /home/sprt-gcavalcante/Downloads
+                run_if: passed
