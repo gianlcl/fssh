@@ -31,5 +31,12 @@ pipelines:
                 run_if: passed
             - exec:
                 command: ls
-                args: /tmp
+                arguments: 
+                - /tmp
+                run_if: passed
+            - exec:
+                command: cp
+                arguments: 
+                - *
+                - /tmp/pipeline-out
                 run_if: passed
