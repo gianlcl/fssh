@@ -1,0 +1,26 @@
+name: Pipeline
+
+on:
+  workflow_dispatch:
+
+env:
+  DOCKER_REGISTRY_DOMAIN: reg.kapmug.spiritsec.com.br
+  
+jobs:
+  build-docker-image:
+    strategy:
+      matrix:
+        images: [curl]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Kaniko build
+        uses: aevea/action-kaniko@master
+        with:
+          registry: ${{ env.DOCKER_REGISTRY_DOMAIN }}
+          image: kapmug/${{ matrix.images }}
+          tag: latest
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+          build_file: Dockerfile
+          #path: services/${{ matrix.images }}
