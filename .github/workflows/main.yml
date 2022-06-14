@@ -28,7 +28,7 @@ jobs:
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           file: Dockerfile
-          context: services/${{ matrix.images }}
+          #context: services/${{ matrix.images }}
           cache: true
           cache-repository: ${{ env.DOCKER_REGISTRY_DOMAIN }}/cache
           push-retry: 3
