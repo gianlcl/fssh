@@ -1,8 +1,10 @@
-name: Pipeline
+name: Pipeline Build
 
 on:
   workflow_dispatch:
     inputs:
+      message:
+        required: true
       services:
         description: "Buildar imagem específica"
         default: ''
@@ -20,5 +22,7 @@ jobs:
     steps:
      - run: |
          echo "Services: $SERVICES"
+         echo "Message: $MESSAGE"
        env:
          SERVICES: ${{ inputs.services }}
+         MESSAGE: ${{ inputs.message }}
