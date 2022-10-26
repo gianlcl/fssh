@@ -21,7 +21,7 @@ jobs:
       matrix:
         images: [${{ inputs.services }}]
     steps:
-			- run: |
-					echo "Services: $SERVICES"
-				env:
-					SERVICES: ${{ inputs.services }}
+     - run: |
+         echo "Services: $SERVICES"
+       env:
+         SERVICES: ${{ inputs.services }}
