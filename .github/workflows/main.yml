@@ -2,6 +2,13 @@ name: Pipeline
 
 on:
   workflow_dispatch:
+    inputs:
+      services:
+        description: "Buildar imagem específica"
+        default: ''
+        type: choice
+        required: false
+        options: ["gateway","services/accountancy","services/authentication","services/biometric","services/contract","services/dashboard","services/document","services/good","services/image","services/info","services/integration","services/nools","services/ocr","services/params","services/person","services/portfolio","services/proposal","services/realty","services/sequences","services/treasury","services/user","services/vehicle"]
 
 env:
   DOCKER_REGISTRY_DOMAIN: reg.kapmug.spiritsec.com.br
@@ -10,25 +17,11 @@ jobs:
   build-docker-image:
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
       matrix:
-        images: [curl]
+        images: [${{ inputs.services }}]
     steps:
-      - uses: actions/checkout@v2
-      - uses: docker/metadata-action@v3
-        id: metadata
-        with:
-          images: ${{ env.DOCKER_REGISTRY_DOMAIN }}/kapmug/${{ matrix.images }}
-      - uses: docker/login-action@v1
-        with:
-          registry: ${{ env.DOCKER_REGISTRY_DOMAIN }}
-          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
-          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
-      - uses: int128/kaniko-action@v1
-        with:
-          push: true
-          tags: ${{ steps.metadata.outputs.tags }}
-          file: Dockerfile
-          #context: services/${{ matrix.images }}
-          cache: true
-          cache-repository: ${{ env.DOCKER_REGISTRY_DOMAIN }}/cache
-          push-retry: 3
+			- run: |
+					echo "Services: $SERVICES"
+				env:
+					SERVICES: ${{ inputs.services }}
