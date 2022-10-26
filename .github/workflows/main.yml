@@ -18,7 +18,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        images: [ um, dois ]
+        images: ${{ inputs.message }}
     steps:
      - run: |
          echo "Services: $SERVICES"
