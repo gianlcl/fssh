@@ -9,9 +9,6 @@ on:
         type: choice
         required: false
         options: ["gateway","services/accountancy","services/authentication","services/biometric","services/contract","services/dashboard","services/document","services/good","services/image","services/info","services/integration","services/nools","services/ocr","services/params","services/person","services/portfolio","services/proposal","services/realty","services/sequences","services/treasury","services/user","services/vehicle"]
-
-env:
-  DOCKER_REGISTRY_DOMAIN: reg.kapmug.spiritsec.com.br
   
 jobs:
   build-docker-image:
@@ -19,7 +16,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        images: [${{ inputs.services }}]
+        images: [ um, dois ]
     steps:
      - run: |
          echo "Services: $SERVICES"
