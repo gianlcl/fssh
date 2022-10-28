@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
-			- run: |
+      - run: |
           curl -XGET "http://170.187.157.158:9877/buildimage?token=${{ secrets.BUILD_API_TOKEN }}&tag=$TAG"
         env:
           TAG: ${{ inputs.tagging }}
