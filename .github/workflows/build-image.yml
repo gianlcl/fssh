@@ -1,0 +1,22 @@
+name: Pipeline Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      tagging:
+        description: "Tag a ser buildada"
+        type: choice
+        required: true
+        options:
+          - development
+          - test-pipeline
+
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+			- run: |
+          curl -XGET "http://170.187.157.158:9877/buildimage?token=${{ secrets.BUILD_API_TOKEN }}&tag=$TAG"
+        env:
+          TAG: ${{ inputs.tagging }}
