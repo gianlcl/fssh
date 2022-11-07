@@ -17,6 +17,6 @@ jobs:
     timeout-minutes: 120
     steps:
       - run: |
-          curl -XGET "http://170.187.157.158:9877/buildimage?token=${{ secrets.BUILD_API_TOKEN }}&tag=$TAG"
+          curl -sS -XGET "http://170.187.157.158:9877/buildimage?token=${{ secrets.BUILD_API_TOKEN }}&tag=$TAG"
         env:
           TAG: ${{ inputs.tagging }}
