@@ -1,7 +1,7 @@
-FROM alpine:3
+FROM ghcr.io/gianlcl/curl:latest
 
-RUN apk add curl ca-certificates
+RUN apk add wget
 
-USER 1000
+USER 10001
 
 ENTRYPOINT ["/usr/bin/curl"]
