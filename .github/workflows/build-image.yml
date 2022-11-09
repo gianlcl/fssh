@@ -35,4 +35,4 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
-            gianlcl/curl:latest
+            ghcr.io/gianlcl/curl:latest
