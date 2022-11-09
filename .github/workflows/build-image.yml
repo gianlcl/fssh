@@ -12,12 +12,27 @@ on:
           - development
           - test-pipeline
 
+permissions:
+  packages: read/write
+
 jobs:
   build-docker-image:
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
-      - run: |
-          curl -sS -XGET "http://170.187.157.158:9877/buildimage?token=${{ secrets.BUILD_API_TOKEN }}&tag=$TAG"
-        env:
-          TAG: ${{ inputs.tagging }}
+      - uses: actions/checkout@master
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: docker/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: |
+            gianlcl/curl:latest
