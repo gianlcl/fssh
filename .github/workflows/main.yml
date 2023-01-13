@@ -15,14 +15,20 @@ on:
 jobs:
   build-docker-image:
     runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 1
-      matrix:
-        images: ${{ inputs.message }}
+    outputs:
+      saida: ${{ steps.build.outputs }}
     steps:
      - run: |
-         echo "Services: $SERVICES"
-         echo "Message: $MESSAGE"
+         yq .exitcode saida.log
+       id: build
        env:
          SERVICES: ${{ inputs.services }}
          MESSAGE: ${{ inputs.message }}
+
+  job2:
+    runs-on: ubuntu-latest
+    needs: build-docker-image
+    steps:
+     - run: |
+         echo "deu tudo certo - ${{ needs.build-docker-image.outputs.saida }}"
+       id: validate
