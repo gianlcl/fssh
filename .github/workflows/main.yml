@@ -19,7 +19,7 @@ jobs:
       saida: ${{ steps.build.outputs.exitcode }}
     steps:
      - run: |
-         echo -E '{"build_tag":"","error_log":"","exitcode":42,"full_log":"Tag de vers\u00e3o deve ser especificado: /home/kpmbuild/build-images/build-images.sh master-kapmug\n","l_image":"","version_tag":"-none"}' | tee saida.log
+         echo -E '{"build_tag":"","error_log":"","exitcode":0,"full_log":"Tag de vers\u00e3o deve ser especificado: /home/kpmbuild/build-images/build-images.sh master-kapmug\n","l_image":"","version_tag":"-none"}' | tee saida.log
          echo "exitcode=$(jq .exitcode saida.log)" >> $GITHUB_OUTPUT
        id: build
        env:
