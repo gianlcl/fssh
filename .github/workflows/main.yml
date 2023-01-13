@@ -3,6 +3,9 @@ name: Pipeline Build
 on:
   workflow_dispatch:
     inputs:
+      deploy:
+        description: "Fazer deploy para dev?"
+        type: boolean
       message:
         required: true
       services:
@@ -29,7 +32,7 @@ jobs:
   job2:
     runs-on: ubuntu-latest
     needs: build-docker-image
-    if: needs.build-docker-image.outputs.saida == 0
+    if: needs.build-docker-image.outputs.saida == 0 && inputs.deploy == true  
     steps:
      - run: |
          echo "deu tudo certo - ${{ needs.build-docker-image.outputs.saida }}"
